@@ -1,0 +1,92 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = ["setuptools", "setuptools_scm[toml]>=6.2"]
+
+[project]
+description = ""
+name = "{{ cookiecutter.package_name }}"
+requires-python = ">=3.9"
+dependencies = []
+dynamic = ["version", "readme"]
+license = {text = "TODO"}
+
+{%- if "no" not in cookiecutter.command_line_interface|lower %}
+[project.scripts]
+sc_dataset = "{{ cookiecutter.package_name }}._main:main"
+{% endif %}
+
+[tool.setuptools.packages.find]
+include = ["{{ cookiecutter.package_name }}*"]
+
+[tool.setuptools.dynamic]
+readme = {file = ["README.md"]}
+version = {attr = "{{ cookiecutter.package_name }}.__version__"}
+
+[options.package_data]
+{{ cookiecutter.package_name }} = ["py.typed"]
+"*" = ["*.rst"]
+
+[tool.setuptools_scm]
+write_to = "{{ cookiecutter.package_name }}/_version.py"
+
+[project.optional-dependencies]
+test = [
+{%- if cookiecutter.use_pytest == 'y' %}
+  "pytest",
+  "pytest-random-order",
+  "pytest-cov",
+{% endif %}
+]
+
+doc = [
+  "sphinx",
+  "sphinxcontrib-apidoc",
+  "sphinx-autodoc-typehints",
+  "furo",
+  "m2r2",
+  "doc8"
+]
+
+lint = [
+  "mypy",
+  "pylint",
+  "flake8"
+]
+
+dev = [
+  "{{ cookiecutter.package_name }}[test]",
+  "{{ cookiecutter.package_name }}[doc]",
+  "{{ cookiecutter.package_name }}[lint]",
+  "ipython",
+  "black",
+  "pdbpp",
+  "esbonio",
+  "rstcheck",
+  "towncrier",
+]
+
+[tool.black]
+line-length = 100
+
+[tool.pytest.ini_options]
+addopts = "-ra --cov={{ cookiecutter.package_name }}"
+testpaths = ["tests"]
+norecursedirs = [
+  "build"
+]
+
+[tool.mypy]
+install_types = true
+non_interactive = true
+strict = true
+
+[tool.pylint."MESSAGE CONTROL"]
+max-line-length = 100
+# disable = ["unsupported-assignment-operation", "unsubscriptable-object"]
+
+[tool.towncrier]
+package = "{{ cookiecutter.package_name }}"
+package_dir = "{{ cookiecutter.package_name }}"
+filename = "HISTORY.rst"
+directory = "changelog/"
+title_format = "{{ cookiecutter.project_name }} {version} ({project_data})"

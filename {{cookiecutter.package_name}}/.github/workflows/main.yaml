@@ -1,0 +1,38 @@
+name: Python package
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.8", "3.9", "3.10", "3.11"]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python ${% raw %}{{ matrix.python-version }}{% endraw %}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${% raw %}{{ matrix.python-version }}{% endraw %}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install '.[test,lint]'
+      - name: Lint with flake8
+        run: |
+          # stop the build if there are Python syntax errors or undefined names
+          flake8 {{ cookiecutter.package_name }} --count --select=E9,F63,F7,F82 --show-source --statistics
+          # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+          flake8 {{ cookiecutter.package_name }} --count --exit-zero --max-complexity=10 --max-line-length=100 --statistics
+      - name: Lint with pylint
+        run: |
+          # stop the build is the score is too low
+          pylint --fail-under=9.5 {{ cookiecutter.package_name }}
+      - name: Test types
+        run: |
+          mypy {{ cookiecutter.package_name }}
+      - name: Run tests
+        run: |
+          pytest
