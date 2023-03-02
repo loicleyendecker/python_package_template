@@ -53,7 +53,7 @@ Ready to contribute? Here's how to set up `{{ cookiecutter.package_name }}` for 
 3. Install your local copy into a virtualenv. This is how you set up your fork for local development::
 
     $ cd {{ cookiecutter.package_name }}/
-    $ python3 -m venv .venv
+    $ python3 -m venv .venv --upgrade-deps
     $ source .venv/bin/activate
     $ pip install -e .
 
@@ -74,13 +74,13 @@ Ready to contribute? Here's how to set up `{{ cookiecutter.package_name }}` for 
 
    To get flake8 and pylint, just pip install them into your virtualenv.
 
-6. Commit your changes and push your branch to BitBucket::
+6. Commit your changes and push your branch to github::
 
     $ git add .
     $ git commit -m "Your detailed description of your changes."
     $ git push origin name-of-your-bugfix-or-feature
 
-7. Submit a pull request through the BitBucket website.
+7. Submit a pull request through the github website.
 
 Pull Request Guidelines
 -----------------------
