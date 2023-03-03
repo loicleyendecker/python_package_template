@@ -90,7 +90,7 @@ Before you submit a pull request, check that it meets these guidelines:
 1. The pull request should include tests.
 2. If the pull request adds functionality, the docs should be updated. Put
    your new functionality into a function with a docstring, and add the
-   feature to the list in README.rst. Please also make sure you update the 
+   feature to the list in README.rst. Please also make sure you update the
    CHANGELOG.rst file to make sure your feature is advertised in the release
    notes.
 
@@ -104,4 +104,3 @@ To run a subset of tests::
 {% else %}
     $ python -m unittest tests.test_{{ cookiecutter.package_name }}
 {%- endif %}
-

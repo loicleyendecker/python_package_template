@@ -81,7 +81,10 @@ install_types = true
 non_interactive = true
 strict = true
 
-[tool.pylint."MESSAGE CONTROL"]
+[tool.pylint.master]
+ignore = "_version.py"
+
+[tool.pylint.message_control]
 max-line-length = 100
 # disable = ["unsupported-assignment-operation", "unsubscriptable-object"]
 

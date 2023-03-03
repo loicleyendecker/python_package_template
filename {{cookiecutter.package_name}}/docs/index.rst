@@ -15,7 +15,7 @@ Welcome to {{ cookiecutter.project_name }}'s documentation!
 
 API reference
 =============
-   
+
 .. toctree::
    :maxdepth: 2
 
