@@ -103,3 +103,6 @@ ENV/
 
 # IDE settings
 .vscode/
+
+# setuptools_scm
+{{ cookiecutter.package_name }}/_version.py
