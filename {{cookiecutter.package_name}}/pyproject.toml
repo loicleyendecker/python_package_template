@@ -64,10 +64,19 @@ dev = [
   "rstcheck",
   "towncrier",
   "pre-commit",
+  "ruff",
 ]
 
 [tool.black]
 line-length = 100
+
+[tool.ruff]
+line-length = 100
+target-version = "py38"
+select = ["E", "F", "I", "EXE", "PTH", "ISC", "RUF", "N"]
+ignore = [
+    "N818",  # Do not force exception classes to end in "Error"
+]
 
 [tool.pytest.ini_options]
 addopts = "-ra --cov={{ cookiecutter.package_name }}"
